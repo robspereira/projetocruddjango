@@ -1,0 +1,54 @@
+{% extends 'enroll/base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-4">
+        <h4 class="text-center alert alert-info">Cadastrar novo estudante</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success" value="Cadastrar">        
+        </form>
+    </div>
+
+    <div class="col-sm-7 offset-1">
+        <h4 class="text-center alert alert-info">Estudantes Cadastrados</h4>
+        {% if estudante %}
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for estd in estudante %}
+                <tr>
+                    <th scope="row">{{estd.codigo}}</th>
+                    <td>{{estd.nome}}</td>
+                    <td>{{estd.email}}</td>
+                    <td>{{estd.curso}}</td>
+                    <td>
+                        <a href="{% url 'atualizarUsuario' codigo=estd.codigo %}" class="btn btn-warning btn-sm">Editar</a>
+                        <form action="{% url 'deletarUsuario' estd.codigo %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger" value="Deletar">
+                        </form>
+                    <td>
+                </tr>        
+                {% endfor %}        
+                </tbody>
+            </table>
+        
+        {% else %}        
+            <h4 class="text-center alert alert-warning">Nenhum registro</h4>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock content%}

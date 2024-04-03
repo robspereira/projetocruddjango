@@ -1,0 +1,25 @@
+{% extends 'enroll/base.html' %}
+{% block content %}
+
+{% if form.errors %}
+
+<div class="alert alert-danger">
+    <strong>Erro!</strong> Corrija os erros no formulário.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-8 offset-2">
+        <h4 class="alert alert-info">Atualizar dados do estudante {{codigo}}</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success" value="Atualizar dados">
+            <a href="{% url 'adicionarEMostrar' %}" class="btn btn-info">Voltar à página inicial</a>
+        </form>
+    </div>
+</div>
+
+{% endif %}
+{% endblock content%}
